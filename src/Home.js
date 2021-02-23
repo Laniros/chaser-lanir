@@ -11,6 +11,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import { NavLink } from "react-router-dom";
 import { fetchByDate } from "./firebase";
+import Paper from "@material-ui/core/Paper";
 import YouTube from "react-youtube";
 function Home() {
   const [season, setSeason] = useState(0);
@@ -25,22 +26,15 @@ function Home() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
       episodes.push(
-        <Grid
-          className={classes.root}
-          item
-          xs={3}
-          xm={3}
-          key={i}
-          style={{
-            border: "solid 1px",
-          }}
-        >
-          <NavLink
-            style={{ textDecoration: "none" }}
-            to={`/questions/${season}/${i}`}
-          >
-            פרק {i}
-          </NavLink>
+        <Grid className={classes.root} item xs={3} xm={3} key={i}>
+          <Paper className={classes.paper}>
+            <NavLink
+              style={{ textDecoration: "none" }}
+              to={`/questions/${season}/${i}`}
+            >
+              פרק {i}
+            </NavLink>
+          </Paper>
         </Grid>
       );
     }
@@ -60,19 +54,8 @@ function Home() {
   }, [season, numOfEpisodes]);
 
   const useStyles = makeStyles((theme) => ({
-    box: {},
-    formControl: {
-      margin: theme.spacing(2),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(5),
-    },
-    root: {
-      width: "100%",
-      maxWidth: 360,
-      height: "50px",
-      backgroundColor: theme.palette.background.paper,
+    paper: {
+      padding: theme.spacing(1),
     },
   }));
 
@@ -102,45 +85,65 @@ function Home() {
       />*/}
       ;
       <Container fixed>
-        <Box className={classes.box}>
-          <Typography variant="h2" gutterBottom align="center" color="primary">
-            ברוכים הבאים לצ'ייסר
-          </Typography>
+        <Typography variant="h2" gutterBottom align="center" color="primary">
+          ברוכים הבאים למרדף
+        </Typography>
 
-          <Grid container>
-            <FormControl component="fieldset">
-              <FormLabel style={{ marginRight: "70px" }} component="legend">
-                בחרו עונה
-              </FormLabel>
-
-              <RadioGroup
-                row
-                aria-label="season"
-                name="season"
-                value={season}
-                onChange={handleChangeSeason}
-                required
-              >
-                <FormControlLabel value="3" control={<Radio />} label="3" />
-
-                <FormControlLabel value="4" control={<Radio />} label="4" />
-                <FormControlLabel value="5" control={<Radio />} label="5" />
-              </RadioGroup>
-            </FormControl>
-            <Grid
-              container
-              direction="row"
-              alignContent="center"
-              alignItems="center"
-              spacing={1}
+        <Grid container justify="center">
+          <FormControl component="fieldset">
+            <FormLabel
               style={{
-                minheight: "80%",
+                marginRight: "70px",
+
+                color: "white",
               }}
+              component="legend"
             >
-              {renderBySeason()}
-            </Grid>
+              בחרו עונה
+            </FormLabel>
+
+            <RadioGroup
+              row
+              aria-label="season"
+              name="season"
+              value={season}
+              onChange={handleChangeSeason}
+              required
+            >
+              <FormControlLabel
+                value="3"
+                control={<Radio style={{ color: "white" }} />}
+                style={{ color: "white" }}
+                label="3"
+              />
+
+              <FormControlLabel
+                value="4"
+                control={<Radio style={{ color: "white" }} />}
+                style={{ color: "white" }}
+                label="4"
+              />
+              <FormControlLabel
+                value="5"
+                control={<Radio style={{ color: "white" }} />}
+                style={{ color: "white" }}
+                label="5"
+              />
+            </RadioGroup>
+          </FormControl>
+          <Grid
+            container
+            direction="row"
+            alignContent="center"
+            alignItems="center"
+            spacing={3}
+            style={{
+              minheight: "80%",
+            }}
+          >
+            {renderBySeason()}
           </Grid>
-        </Box>
+        </Grid>
       </Container>
     </div>
   );
