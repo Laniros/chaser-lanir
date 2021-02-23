@@ -1,6 +1,10 @@
 {
   "name": "chaser",
   "version": "0.1.0",
+  "engines": {
+    "node": "15.x",
+    "npm": "7.5.x"
+  },
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.3",
