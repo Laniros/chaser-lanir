@@ -9,7 +9,8 @@ class App extends Component {
     return (
       <Router>
         <Route exact path="/">
-          <Home />
+          <p>hi</p>
+          {/* <Home /> */}
         </Route>
         <Route path="/add">
           <AddQ />

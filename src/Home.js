@@ -16,7 +16,6 @@ function Home() {
   const [season, setSeason] = useState(0);
   const [dates, setDates] = useState("");
   const [numOfEpisodes, setNumOfEpisodes] = useState(0);
-  let audio = new Audio("./Theme.mp3");
   const handleChangeSeason = (event) => {
     setSeason(event.target.value);
   };
