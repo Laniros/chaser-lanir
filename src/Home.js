@@ -59,6 +59,7 @@ function Home() {
       padding: theme.spacing(2),
       textAlign: "center",
       height: "30px",
+      width: "60px",
     },
   }));
 

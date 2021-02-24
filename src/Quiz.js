@@ -51,6 +51,7 @@ function Quiz({ match }) {
         background: "#E8E8E8",
       },
       height: "70px",
+      weight: "60px",
     },
     grid: {
       padding: theme.spacing(2),
