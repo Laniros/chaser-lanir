@@ -25,7 +25,7 @@ function Home() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
       episodes.push(
-        <Grid item xs={2} key={i}>
+        <Grid item xs={1} key={i}>
           <Paper className={classes.paper}>
             <NavLink
               style={{
@@ -56,7 +56,7 @@ function Home() {
 
   const useStyles = makeStyles((theme) => ({
     paper: {
-      padding: theme.spacing(2),
+      padding: theme.spacing(1),
       textAlign: "center",
       height: "30px",
       width: "60px",
