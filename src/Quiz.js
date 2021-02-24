@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { fetchQ } from "./firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { SettingsSystemDaydream } from "@material-ui/icons";
 import Container from "@material-ui/core/Container";
 function Quiz({ match }) {
   const season = match.params.season;

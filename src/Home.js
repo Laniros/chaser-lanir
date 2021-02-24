@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import { Box } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Radio from "@material-ui/core/Radio";
@@ -12,12 +11,12 @@ import FormLabel from "@material-ui/core/FormLabel";
 import { NavLink } from "react-router-dom";
 import { fetchByDate } from "./firebase";
 import Paper from "@material-ui/core/Paper";
-import YouTube from "react-youtube";
+import Tada from "react-reveal/Tada";
+
 function Home() {
   const [season, setSeason] = useState(0);
   const [dates, setDates] = useState("");
   const [numOfEpisodes, setNumOfEpisodes] = useState(0);
-  let audio = new Audio("./Theme.mp3");
   const handleChangeSeason = (event) => {
     setSeason(event.target.value);
   };
@@ -26,7 +25,7 @@ function Home() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
       episodes.push(
-        <Grid className={classes.root} item xs={3} xm={3} key={i}>
+        <Grid className={classes.root} item xs={2} xm={3} key={i}>
           <Paper className={classes.paper}>
             <NavLink
               style={{ textDecoration: "none" }}
@@ -63,44 +62,26 @@ function Home() {
     fetchByDate(season).then((data) => setDates(data));
   }, [season]);
 
-  const opts = {
-    height: "110",
-    width: "110",
-    playerVars: {
-      autoplay: 1,
-    },
-  };
-
-  function videoOnReady(event) {
-    event.target.seekTo(0);
-  }
-
   const classes = useStyles();
   return (
     <div dir="rtl">
-      {/*      <YouTube
-        videoId="Wc-2Lf8vXEY"
-        opts={opts}
-        onReady={(event) => videoOnReady(event)}
-      />*/}
-      ;
       <Container fixed>
-        <Typography variant="h2" gutterBottom align="center" color="primary">
-          ברוכים הבאים למרדף
-        </Typography>
+        <Tada>
+          <Typography variant="h2" align="center" color="primary">
+            ברוכים הבאים למרדף
+          </Typography>
+        </Tada>
 
         <Grid container justify="center">
           <FormControl component="fieldset">
-            <FormLabel
+            <h2
               style={{
-                marginRight: "70px",
-
                 color: "white",
+                textAlign: "center",
               }}
-              component="legend"
             >
               בחרו עונה
-            </FormLabel>
+            </h2>
 
             <RadioGroup
               row
@@ -136,9 +117,10 @@ function Home() {
             direction="row"
             alignContent="center"
             alignItems="center"
-            spacing={3}
+            spacing={2}
             style={{
               minheight: "80%",
+              marginTop: "10px",
             }}
           >
             {renderBySeason()}

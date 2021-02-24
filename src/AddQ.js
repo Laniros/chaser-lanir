@@ -66,6 +66,7 @@ export function AddQ() {
 
   const useStyles = makeStyles((theme) => ({
     box: {
+      color: "white",
       position: "fixed",
       top: "40%",
       left: "40%",
@@ -86,7 +87,7 @@ export function AddQ() {
 
   return (
     <div dir="rtl">
-      <Box className={classes.box}>
+      <Box className={classes.box} style={{ backgroundColor: "white" }}>
         <form className={classes.container} onSubmit={handleSubmit}>
           {error ? <Alert severity="error">{error}</Alert> : ""}
           <Grid container alignItems="center" spacing={3}>

@@ -5,8 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /** background image */
-  background-image: url("question-mark.jpg");
+
+  background-image: url("./pics/question-mark.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
