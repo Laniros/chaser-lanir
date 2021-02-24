@@ -50,6 +50,7 @@ function Quiz({ match }) {
       "&:hover": {
         background: "#E8E8E8",
       },
+      height: "70px",
     },
     grid: {
       padding: theme.spacing(2),
@@ -138,6 +139,9 @@ function Quiz({ match }) {
       {data.length > 0 ? (
         <>
           <Container className={classes.container}>
+            <p style={{ color: "white" }}>
+              {data.length} / {numOfQuestion + 1}
+            </p>
             <Grid
               container
               direction="row"

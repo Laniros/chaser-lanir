@@ -25,10 +25,12 @@ function Home() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
       episodes.push(
-        <Grid className={classes.root} item xs={2} xm={3} key={i}>
+        <Grid item xs={2} key={i}>
           <Paper className={classes.paper}>
             <NavLink
-              style={{ textDecoration: "none" }}
+              style={{
+                textDecoration: "none",
+              }}
               to={`/questions/${season}/${i}`}
             >
               פרק {i}
@@ -54,7 +56,9 @@ function Home() {
 
   const useStyles = makeStyles((theme) => ({
     paper: {
-      padding: theme.spacing(1),
+      padding: theme.spacing(2),
+      textAlign: "center",
+      height: "30px",
     },
   }));
 
