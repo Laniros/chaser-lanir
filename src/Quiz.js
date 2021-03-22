@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { fetchQ } from "./firebase";
+import { fetchQ, fetchLast } from "./firebase";
 import noData from "./pics/noData.png";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
@@ -13,6 +13,10 @@ function Quiz({ match }) {
   const episode = match.params.episode;
   const [data, setData] = useState("");
   const [numOfQuestion, setNumOfQuestion] = useState(0);
+  const [lastUpdated, setLastUpdated] = useState({
+    season: 0,
+    episode: 0,
+  });
   const defaultStyling = {
     borderColor: "black",
     width: "100%",
@@ -135,86 +139,110 @@ function Quiz({ match }) {
     fetchQ(season, episode).then((data) => {
       setData(data);
     });
+    fetchLast().then((data) => {
+      setLastUpdated({
+        season: data[0].season,
+        episode: data[0].episode,
+      });
+    });
   }, []);
+
+  function isEpAvialable() {
+    console.log("season" + season);
+    console.log(lastUpdated.season);
+    if (lastUpdated.season < season) {
+      return false;
+    }
+    if (lastUpdated.episode < episode) {
+      return false;
+    }
+    return true;
+  }
 
   const classes = useStyles();
   return (
     <div dir="rtl">
-      {data.length > 0 ? (
-        <>
-          <Container className={classes.container}>
-            <p style={{ color: "white" }}>
-              {data.length} / {numOfQuestion + 1}
-            </p>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              spacing={2}
-              className={classes.grid}
-            >
-              <Grid item={true} xs={12}>
-                <Paper className={classes.paper}>
-                  {data[numOfQuestion].question}
-                </Paper>
-              </Grid>
+      {data ? (
+        data.length > 0 ? (
+          <>
+            <Container className={classes.container}>
+              <p style={{ color: "white" }}>
+                {data.length} / {numOfQuestion + 1}
+              </p>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                spacing={2}
+                className={classes.grid}
+              >
+                <Grid item={true} xs={12}>
+                  <Paper className={classes.paper}>
+                    {data[numOfQuestion].question}
+                  </Paper>
+                </Grid>
 
-              <Grid item={true} xs={4}>
+                <Grid item={true} xs={4}>
+                  <Button
+                    className={classes.button}
+                    style={styling[1]}
+                    value={1}
+                    variant="outlined"
+                    onClick={(e) => handleClick(e.currentTarget.value)}
+                  >
+                    {data[numOfQuestion][1].answer}
+                  </Button>
+                </Grid>
+                <Grid item={true} xs={4} border={1}>
+                  <Button
+                    className={classes.button}
+                    value={2}
+                    style={styling[2]}
+                    variant="outlined"
+                    onClick={(e) => handleClick(e.currentTarget.value)}
+                  >
+                    {data[numOfQuestion][2].answer}
+                  </Button>
+                </Grid>
+                <Grid item={true} xs={4}>
+                  <Button
+                    className={classes.button}
+                    style={styling[3]}
+                    variant="outlined"
+                    value={3}
+                    onClick={(e) => handleClick(e.currentTarget.value)}
+                  >
+                    {data[numOfQuestion][3].answer}
+                  </Button>
+                </Grid>
                 <Button
-                  className={classes.button}
-                  style={styling[1]}
-                  value={1}
-                  variant="outlined"
-                  onClick={(e) => handleClick(e.currentTarget.value)}
+                  onClick={handlePrevQuestion}
+                  style={{ color: "white" }}
+                  disabled={numOfQuestion === 0}
                 >
-                  {data[numOfQuestion][1].answer}
+                  לשאלה הקודמת
+                </Button>
+                <Button
+                  onClick={handleNextQuestion}
+                  style={{ color: "white" }}
+                  disabled={numOfQuestion === data.length - 1}
+                >
+                  לשאלה הבאה
                 </Button>
               </Grid>
-              <Grid item={true} xs={4} border={1}>
-                <Button
-                  className={classes.button}
-                  value={2}
-                  style={styling[2]}
-                  variant="outlined"
-                  onClick={(e) => handleClick(e.currentTarget.value)}
-                >
-                  {data[numOfQuestion][2].answer}
-                </Button>
-              </Grid>
-              <Grid item={true} xs={4}>
-                <Button
-                  className={classes.button}
-                  style={styling[3]}
-                  variant="outlined"
-                  value={3}
-                  onClick={(e) => handleClick(e.currentTarget.value)}
-                >
-                  {data[numOfQuestion][3].answer}
-                </Button>
-              </Grid>
-              <Button
-                onClick={handlePrevQuestion}
-                style={{ color: "white" }}
-                disabled={numOfQuestion === 0}
-              >
-                לשאלה הקודמת
-              </Button>
-              <Button
-                onClick={handleNextQuestion}
-                style={{ color: "white" }}
-                disabled={numOfQuestion === data.length - 1}
-              >
-                לשאלה הבאה
-              </Button>
-            </Grid>
-          </Container>
-        </>
+            </Container>
+          </>
+        ) : (
+          <div className={classes.spinner}>
+            <Typography variant="h2" align="center" color="primary">
+              פרק זה עדיין לא זמין
+            </Typography>
+            <img className={classes.img} src={noData} alt="noDataYet" />
+          </div>
+        )
       ) : (
         <div className={classes.spinner}>
-          <Typography variant="h2" align="center" color="primary">
-            פרק זה עדיין לא זמין
-          </Typography>
-          <img className={classes.img} src={noData} alt="noDataYet" />
+          <CircularProgress />
         </div>
       )}
     </div>

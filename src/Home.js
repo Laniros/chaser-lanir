@@ -10,7 +10,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { NavLink } from "react-router-dom";
 import { fetchByDate } from "./firebase";
 import Paper from "@material-ui/core/Paper";
-import Tada from "react-reveal/Tada";
 
 function Home() {
   const [season, setSeason] = useState(0);
@@ -24,7 +23,6 @@ function Home() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
       if (parseInt(season) === 3 && i === 35) {
-        console.log("hi");
         episodes.push(
           <Grid item xs={2} key={i}>
             <Paper className={classes.paper}>
@@ -87,11 +85,9 @@ function Home() {
   return (
     <div dir="rtl">
       <Container style={{ display: "grid" }} fixed>
-        <Tada>
-          <Typography variant="h2" align="center" color="primary">
-            ברוכים הבאים למרדף
-          </Typography>
-        </Tada>
+        <Typography variant="h2" align="center" color="primary">
+          ברוכים הבאים למרדף
+        </Typography>
 
         <Grid container justify="center">
           <FormControl component="fieldset">

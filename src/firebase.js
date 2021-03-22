@@ -35,4 +35,5 @@ export async function fetchByDate(season, episode) {
     .catch((error) => console.log(error));
   return snapshot.docs.map((doc) => doc.data());
 }
+
 export default firebase;
