@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { fetchQ, fetchLast } from "./firebase";
+import { fetchQ } from "./firebase";
 import noData from "./pics/noData.png";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Container from "@material-ui/core/Container";
@@ -13,10 +13,6 @@ function Quiz({ match }) {
   const episode = match.params.episode;
   const [data, setData] = useState("");
   const [numOfQuestion, setNumOfQuestion] = useState(0);
-  const [lastUpdated, setLastUpdated] = useState({
-    season: 0,
-    episode: 0,
-  });
   const defaultStyling = {
     borderColor: "black",
     width: "100%",
@@ -139,25 +135,7 @@ function Quiz({ match }) {
     fetchQ(season, episode).then((data) => {
       setData(data);
     });
-    fetchLast().then((data) => {
-      setLastUpdated({
-        season: data[0].season,
-        episode: data[0].episode,
-      });
-    });
   }, []);
-
-  function isEpAvialable() {
-    console.log("season" + season);
-    console.log(lastUpdated.season);
-    if (lastUpdated.season < season) {
-      return false;
-    }
-    if (lastUpdated.episode < episode) {
-      return false;
-    }
-    return true;
-  }
 
   const classes = useStyles();
   return (
