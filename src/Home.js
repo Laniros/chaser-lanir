@@ -7,7 +7,6 @@ import Radio from "@material-ui/core/Radio";
 import Typography from "@material-ui/core/Typography";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormLabel from "@material-ui/core/FormLabel";
 import { NavLink } from "react-router-dom";
 import { fetchByDate } from "./firebase";
 import Paper from "@material-ui/core/Paper";
@@ -24,20 +23,38 @@ function Home() {
   function renderBySeason() {
     var episodes = [];
     for (let i = 1; i <= numOfEpisodes; i++) {
-      episodes.push(
-        <Grid item xs={2} key={i}>
-          <Paper className={classes.paper}>
-            <NavLink
-              style={{
-                textDecoration: "none",
-              }}
-              to={`/questions/${season}/${i}`}
-            >
-              פרק {i}
-            </NavLink>
-          </Paper>
-        </Grid>
-      );
+      if (parseInt(season) === 3 && i === 35) {
+        console.log("hi");
+        episodes.push(
+          <Grid item xs={2} key={i}>
+            <Paper className={classes.paper}>
+              <NavLink
+                style={{
+                  textDecoration: "none",
+                }}
+                to={`/questions/${season}/${i}`}
+              >
+                ספיישל אירוויזיון
+              </NavLink>
+            </Paper>
+          </Grid>
+        );
+      } else {
+        episodes.push(
+          <Grid item xs={2} key={i}>
+            <Paper className={classes.paper}>
+              <NavLink
+                style={{
+                  textDecoration: "none",
+                }}
+                to={`/questions/${season}/${i}`}
+              >
+                פרק {i}
+              </NavLink>
+            </Paper>
+          </Grid>
+        );
+      }
     }
     return episodes;
   }
@@ -69,7 +86,7 @@ function Home() {
   const classes = useStyles();
   return (
     <div dir="rtl">
-      <Container fixed>
+      <Container style={{ display: "grid" }} fixed>
         <Tada>
           <Typography variant="h2" align="center" color="primary">
             ברוכים הבאים למרדף
@@ -81,7 +98,6 @@ function Home() {
             <h2
               style={{
                 color: "white",
-                textAlign: "center",
               }}
             >
               בחרו עונה
@@ -119,8 +135,6 @@ function Home() {
           <Grid
             container
             direction="row"
-            alignContent="center"
-            alignItems="center"
             spacing={2}
             style={{
               minheight: "80%",
