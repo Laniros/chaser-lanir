@@ -45,7 +45,11 @@ function Quiz({ match }) {
     paper: {
       padding: theme.spacing(2),
       textAlign: "center",
-      height: window.innerWidth > 700 ? "" : "50px",
+      height: window.innerWidth > 700 ? "" : "80px",
+      verticalAlign: "middle",
+      justifyContent: "center",
+      alignItems: "center",
+      display: "flex",
     },
     button: {
       padding: theme.spacing(2),
