@@ -45,6 +45,7 @@ function Quiz({ match }) {
     paper: {
       padding: theme.spacing(2),
       textAlign: "center",
+      height: window.innerWidth > 700 ? "" : "50px",
     },
     button: {
       padding: theme.spacing(2),
@@ -71,7 +72,6 @@ function Quiz({ match }) {
     container: {
       marginTop: "100px",
     },
-    img: {},
   }));
   function handleClick(number) {
     if (!clicked[number]) {
@@ -137,79 +137,162 @@ function Quiz({ match }) {
     });
   }, []);
 
+  function chooseRender() {
+    if (window.innerWidth > 700) {
+      return renderDesktop();
+    } else {
+      return renderMobile();
+    }
+  }
+
+  function renderDesktop() {
+    return (
+      <Container className={classes.container}>
+        <p style={{ color: "white" }}>
+          {data.length} / {numOfQuestion + 1}
+        </p>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          spacing={2}
+          className={classes.grid}
+        >
+          <Grid item={true} xs={12}>
+            <Paper className={classes.paper}>
+              {data[numOfQuestion].question}
+            </Paper>
+          </Grid>
+
+          <Grid item={true} xs={4}>
+            <Button
+              className={classes.button}
+              style={styling[1]}
+              value={1}
+              variant="outlined"
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][1].answer}
+            </Button>
+          </Grid>
+          <Grid item={true} xs={4} border={1}>
+            <Button
+              className={classes.button}
+              value={2}
+              style={styling[2]}
+              variant="outlined"
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][2].answer}
+            </Button>
+          </Grid>
+          <Grid item={true} xs={4}>
+            <Button
+              className={classes.button}
+              style={styling[3]}
+              variant="outlined"
+              value={3}
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][3].answer}
+            </Button>
+          </Grid>
+          <Button
+            onClick={handlePrevQuestion}
+            style={{ color: "white" }}
+            disabled={numOfQuestion === 0}
+          >
+            לשאלה הקודמת
+          </Button>
+          <Button
+            onClick={handleNextQuestion}
+            style={{ color: "white" }}
+            disabled={numOfQuestion === data.length - 1}
+          >
+            לשאלה הבאה
+          </Button>
+        </Grid>
+      </Container>
+    );
+  }
+
+  function renderMobile() {
+    return (
+      <Container>
+        <p style={{ color: "white" }}>
+          {data.length} / {numOfQuestion + 1}
+        </p>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          spacing={2}
+          className={classes.grid}
+        >
+          <Grid item={true} xs={12}>
+            <Paper className={classes.paper}>
+              {data[numOfQuestion].question}
+            </Paper>
+          </Grid>
+
+          <Grid item={true} xs={12}>
+            <Button
+              className={classes.button}
+              style={styling[1]}
+              value={1}
+              variant="outlined"
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][1].answer}
+            </Button>
+          </Grid>
+          <Grid item={true} xs={12} border={1}>
+            <Button
+              className={classes.button}
+              value={2}
+              style={styling[2]}
+              variant="outlined"
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][2].answer}
+            </Button>
+          </Grid>
+          <Grid item={true} xs={12}>
+            <Button
+              className={classes.button}
+              style={styling[3]}
+              variant="outlined"
+              value={3}
+              onClick={(e) => handleClick(e.currentTarget.value)}
+            >
+              {data[numOfQuestion][3].answer}
+            </Button>
+          </Grid>
+          <Button
+            onClick={handlePrevQuestion}
+            style={{ color: "white" }}
+            disabled={numOfQuestion === 0}
+          >
+            לשאלה הקודמת
+          </Button>
+          <Button
+            onClick={handleNextQuestion}
+            style={{ color: "white" }}
+            disabled={numOfQuestion === data.length - 1}
+          >
+            לשאלה הבאה
+          </Button>
+        </Grid>
+      </Container>
+    );
+  }
+
   const classes = useStyles();
   return (
     <div dir="rtl">
       {data ? (
         data.length > 0 ? (
-          <>
-            <Container className={classes.container}>
-              <p style={{ color: "white" }}>
-                {data.length} / {numOfQuestion + 1}
-              </p>
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                spacing={2}
-                className={classes.grid}
-              >
-                <Grid item={true} xs={12}>
-                  <Paper className={classes.paper}>
-                    {data[numOfQuestion].question}
-                  </Paper>
-                </Grid>
-
-                <Grid item={true} xs={4}>
-                  <Button
-                    className={classes.button}
-                    style={styling[1]}
-                    value={1}
-                    variant="outlined"
-                    onClick={(e) => handleClick(e.currentTarget.value)}
-                  >
-                    {data[numOfQuestion][1].answer}
-                  </Button>
-                </Grid>
-                <Grid item={true} xs={4} border={1}>
-                  <Button
-                    className={classes.button}
-                    value={2}
-                    style={styling[2]}
-                    variant="outlined"
-                    onClick={(e) => handleClick(e.currentTarget.value)}
-                  >
-                    {data[numOfQuestion][2].answer}
-                  </Button>
-                </Grid>
-                <Grid item={true} xs={4}>
-                  <Button
-                    className={classes.button}
-                    style={styling[3]}
-                    variant="outlined"
-                    value={3}
-                    onClick={(e) => handleClick(e.currentTarget.value)}
-                  >
-                    {data[numOfQuestion][3].answer}
-                  </Button>
-                </Grid>
-                <Button
-                  onClick={handlePrevQuestion}
-                  style={{ color: "white" }}
-                  disabled={numOfQuestion === 0}
-                >
-                  לשאלה הקודמת
-                </Button>
-                <Button
-                  onClick={handleNextQuestion}
-                  style={{ color: "white" }}
-                  disabled={numOfQuestion === data.length - 1}
-                >
-                  לשאלה הבאה
-                </Button>
-              </Grid>
-            </Container>
-          </>
+          <div>{chooseRender()}</div>
         ) : (
           <div className={classes.spinner}>
             <Typography variant="h2" align="center" color="primary">

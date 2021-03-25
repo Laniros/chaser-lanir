@@ -27,9 +27,7 @@ function Home() {
           <Grid item xs={2} key={i}>
             <Paper className={classes.paper}>
               <NavLink
-                style={{
-                  textDecoration: "none",
-                }}
+                className={classes.NavLink}
                 to={`/questions/${season}/${i}`}
               >
                 ספיישל אירוויזיון
@@ -72,8 +70,10 @@ function Home() {
   const useStyles = makeStyles((theme) => ({
     paper: {
       padding: theme.spacing(2),
-
-      height: "30px",
+      width: window.innerWidth > 800 ? "" : "15px",
+    },
+    NavLink: {
+      textDecoration: "none",
     },
   }));
 
